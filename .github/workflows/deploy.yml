@@ -34,5 +34,5 @@ jobs:
         key: ${{ env.SSH_PRIVATE_KEY }}
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - name: Push to server
-      run: rsync -avz -e 'ssh' dist ${{ env.USER }}@${{ env.HOST }}:~
+      run: rsync -avz -e 'ssh' dist node_modules ${{ env.USER }}@${{ env.HOST }}:~
     
