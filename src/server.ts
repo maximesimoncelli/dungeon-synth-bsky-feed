@@ -58,6 +58,10 @@ export class FeedGenerator {
     app.use(server.xrpc.router)
     app.use(wellKnown(ctx))
 
+    app.get('/healthcheck', ({res}) => {
+      res?.status(200).send()
+    })
+
     return new FeedGenerator(app, db, firehose, cfg)
   }
 

@@ -12,11 +12,6 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
   async handleEvent(evt: RepoEvent) {
     if (!isCommit(evt)) return
     const ops = await getOpsByType(evt)
-
-    for (const post of ops.posts.creates) {
-      if (validate(post.record.text) && process.env.NODE_ENV !== 'production') console.log(post.record.text)
-    }
-
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const postsToCreate = ops.posts.creates
       .filter(create => validate(create.record.text))
