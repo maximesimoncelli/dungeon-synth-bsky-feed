@@ -35,4 +35,6 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - name: Push to server
       run: rsync -avz -e 'ssh' dist node_modules ${{ env.USER }}@${{ env.HOST }}:~
+    - name: Reload app
+      run: ssh ${{ env.USER}}@${{ env.HOST }} "pm2 reload all"
     
