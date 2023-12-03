@@ -1,0 +1,28 @@
+name: Deploy
+on: workflow_dispatch
+
+env:
+  FEEDGEN_HOSTNAME: ${{ secrets.FEEDGEN_HOSTNAME }}
+  FEEDGEN_LISTENHOST: ${{ secrets.FEEDGEN_LISTENHOST }}
+  FEEDGEN_PORT: ${{ secrets.FEEDGEN_PORT }}
+  FEEDGEN_PUBLISHER_DID: ${{ secrets.FEEDGEN_PUBLISHER_DID }}
+  FEEDGEN_SQLITE_LOCATION: ${{ secrets.FEEDGEN_SQLITE_LOCATION }}
+  FEEDGEN_SUBSCRIPTION_ENDPOINT: ${{ secrets.FEEDGEN_SUBSCRIPTION_ENDPOINT }}
+  FEEDGEN_SUBSCRIPTION_RECONNECT_DELAY: ${{ secrets.FEEDGEN_SUBSCRIPTION_RECONNECT_DELAY }}
+  HOST: ${{ secrets.HOST }}
+  USER: ${{ secrets.USER }}
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 20
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: rsync -avz -e 'ssh' dist ${{ env.USER }}@${{ env.HOST }}:~
+    
