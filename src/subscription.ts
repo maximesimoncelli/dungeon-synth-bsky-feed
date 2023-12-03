@@ -4,26 +4,23 @@ import {
 } from './lexicon/types/com/atproto/sync/subscribeRepos'
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
 
+export const validConditions = ['#dungeonsynth','🧙', 'dungeon synth', 'dungeonsynth'];
+
+export const validate = (post: string) => validConditions.some(condition => post.toLowerCase().indexOf(condition)!== -1 )
+
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
   async handleEvent(evt: RepoEvent) {
     if (!isCommit(evt)) return
     const ops = await getOpsByType(evt)
 
-    // This logs the text of every post off the firehose.
-    // Just for fun :)
-    // Delete before actually using
     for (const post of ops.posts.creates) {
-      console.log(post.record.text)
+      if (validate(post.record.text) && process.env.NODE_ENV !== 'production') console.log(post.record.text)
     }
 
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const postsToCreate = ops.posts.creates
-      .filter((create) => {
-        // only alf-related posts
-        return create.record.text.toLowerCase().includes('alf')
-      })
+      .filter(create => validate(create.record.text))
       .map((create) => {
-        // map alf-related posts to a db row
         return {
           uri: create.uri,
           cid: create.cid,
