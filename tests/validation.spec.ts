@@ -19,7 +19,9 @@ describe('dungeonsynth algo', () => {
 
     const valid: string[] = []
 
-    toValidate.forEach((string) => validate(string) ? valid.push(string) : null)
-    expect(valid).toHaveLength(6)
+    toValidate.forEach((string) =>
+      validate(string) ? valid.push(string) : null,
+    )
+    expect(valid).toHaveLength(4)
   })
 })

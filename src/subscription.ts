@@ -4,9 +4,16 @@ import {
 } from './lexicon/types/com/atproto/sync/subscribeRepos'
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
 
-export const validConditions = ['#dungeonsynth','🧙', 'dungeon synth', 'dungeonsynth'];
+export const validConditions = [
+  '#dungeonsynth',
+  'dungeon synth',
+  'dungeonsynth',
+]
 
-export const validate = (post: string) => validConditions.some(condition => post.toLowerCase().indexOf(condition)!== -1 )
+export const validate = (post: string) =>
+  validConditions.some(
+    (condition) => post.toLowerCase().indexOf(condition) !== -1,
+  )
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
   async handleEvent(evt: RepoEvent) {
@@ -14,7 +21,7 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const ops = await getOpsByType(evt)
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const postsToCreate = ops.posts.creates
-      .filter(create => validate(create.record.text))
+      .filter((create) => validate(create.record.text))
       .map((create) => {
         return {
           uri: create.uri,
