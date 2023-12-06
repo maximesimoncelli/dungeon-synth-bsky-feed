@@ -33,5 +33,14 @@ jobs:
         with:
           key: ${{ env.SSH_PRIVATE_KEY }}
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      - name: Create .env
+        run: |
+          touch .env
+          echo "FEEDGEN_PORT=${{ env.FEEDGEN_PORT }}" >> .env
+          echo "FEEDGEN_SQLITE_LOCATION=${{ env.FEEDGEN_SQLITE_LOCATION }}" >> .env
+          echo "FEEDGEN_SUBSCRIPTION_ENDPOINT=${{ env.FEEDGEN_SUBSCRIPTION_ENDPOINT }}" >> .env
+          echo "FEEDGEN_HOSTNAME=${{ env.FEEDGEN_HOSTNAME }}" >> .env
+          echo "FEEDGEN_PUBLISHER_DID=${{ env.FEEDGEN_PUBLISHER_DID }}" >> .env
+          echo "FEEDGEN_SUBSCRIPTION_RECONNECT_DELAY=${{ env.FEEDGEN_SUBSCRIPTION_RECONNECT_DELAY }}" >> .env
       - name: Push to server
-        run: rsync -avz -e 'ssh' dist/* node_modules ${{ env.USER }}@${{ env.HOST }}:app/
+        run: rsync -avz -e 'ssh' dist/* node_modules ecosystem.config.js .env package.json ${{ env.USER }}@${{ env.HOST }}:app/
