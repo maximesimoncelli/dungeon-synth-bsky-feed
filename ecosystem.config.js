@@ -4,7 +4,7 @@ module.exports = {
       name: 'Bluesky Dungeon Synth Feed',
       script: './index.js',
       watch: true,
-      ignore_watch: ['node_modules', 'db.sqlite-journal'],
+      ignore_watch: ['node_modules', 'db.sqlite-journal', 'db.sqlite'],
     },
   ],
 }
