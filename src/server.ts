@@ -48,13 +48,16 @@ export class FeedGenerator {
         blobLimit: 5 * 1024 * 1024, // 5mb
       },
     })
+
     const ctx: AppContext = {
       db,
       didResolver,
       cfg,
     }
+
     feedGeneration(server, ctx)
     describeGenerator(server, ctx)
+    
     app.use(server.xrpc.router)
     app.use(wellKnown(ctx))
 
