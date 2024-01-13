@@ -4,7 +4,7 @@ import events from 'events'
 
 /**
  * These tests are not ideal as they do not really test anything 'real'
- * happening but they provided at least some mesure of safety
+ * happening but they provide at least some mesure of safety
  * when merging dependabot automatic update PRs.
  */
 describe('FeedGenerator', () => {
