@@ -3,17 +3,41 @@ import {
   isCommit,
 } from './lexicon/types/com/atproto/sync/subscribeRepos'
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
+import { Record } from './lexicon/types/app/bsky/feed/post'
+import { isMain } from './lexicon/types/app/bsky/embed/images'
 
 export const validConditions = [
   '#dungeonsynth',
   'dungeon synth',
   'dungeonsynth',
+  'fantasy synth',
+  '#fantasysynth',
+  'fantasysynth',
+  'wintersynth',
+  'forestsynth',
+  'comfysynth',
+  '#wintersynth',
+  '#forestsynth',
+  '#comfysynth',
+  'winter synth',
+  'forest synth',
+  'comfy synth',
 ]
 
-export const validate = (post: string) =>
-  validConditions.some(
-    (condition) => post.toLowerCase().indexOf(condition) !== -1,
+export const validate = (post: Record) => {
+  const isTextValid = validConditions.some(
+    (condition) => post.text.toLowerCase().indexOf(condition) !== -1,
   )
+
+  // Don't need to check the embed if the text is already valid
+  if (isTextValid) return isTextValid;
+
+  if (isMain(post.embed)) {
+    return post.embed.images.some(image => validConditions.some(
+      (condition) => image.alt.toLowerCase().indexOf(condition) !== -1,
+    ))
+  }
+}
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
   async handleEvent(evt: RepoEvent) {
@@ -21,7 +45,7 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
     const ops = await getOpsByType(evt)
     const postsToDelete = ops.posts.deletes.map((del) => del.uri)
     const postsToCreate = ops.posts.creates
-      .filter((create) => validate(create.record.text))
+      .filter((create) => validate(create.record))
       .map((create) => {
         return {
           uri: create.uri,
