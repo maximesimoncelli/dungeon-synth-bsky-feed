@@ -1,6 +1,6 @@
 {
   "name": "dungeon-synth-bsky-feed",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "server for the Dungeon Synth feed on bluesky",
   "main": "dist/index.js",
   "repository": "git@github.com:maximesimoncelli/dungeon-synth-bsky-feed.git",
