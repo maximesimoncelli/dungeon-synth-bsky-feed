@@ -12,7 +12,7 @@ describe('FeedGenerator', () => {
     beforeEach(() => {
         feedGenerator = FeedGenerator.create({
             hostname: 'hostname',
-            listenhost: 'listenhost',
+            listenHost: 'listenhost',
             port: 1,
             publisherDid: 'publisherDid',
             serviceDid: 'serviceDid',

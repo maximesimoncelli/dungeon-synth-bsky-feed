@@ -1,14 +1,17 @@
 import { AppContext } from '../config'
 import {
   QueryParams,
-  OutputSchema as AlgoOutput,
+  OutputSchema as AlgorithmOutput,
 } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
-import * as whatsAlf from './dungeonsynth'
+import {
+  shortname,
+  handler
+} from './dungeonsynth'
 
-type AlgoHandler = (ctx: AppContext, params: QueryParams) => Promise<AlgoOutput>
+type AlgorithmHandler = (ctx: AppContext, params: QueryParams) => Promise<AlgorithmOutput>
 
-const algos: Record<string, AlgoHandler> = {
-  [whatsAlf.shortname]: whatsAlf.handler,
+const algorithms: Record<string, AlgorithmHandler> = {
+  [shortname]: handler,
 }
 
-export default algos
+export default algorithms
