@@ -17,11 +17,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@atproto/api": "^0.12.2",
-    "@atproto/identity": "^0.3.2",
+    "@atproto/api": "^0.13.32",
+    "@atproto/identity": "^0.4.5",
     "@atproto/lexicon": "^0.4.5",
     "@atproto/repo": "^0.6.3",
-    "@atproto/syntax": "^0.1.5",
+    "@atproto/syntax": "^0.3.1",
     "@atproto/xrpc-server": "^0.7.9",
     "better-sqlite3": "^9.5.0",
     "dotenv": "^16.3.1",
