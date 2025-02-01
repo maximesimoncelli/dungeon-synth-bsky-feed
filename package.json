@@ -1,6 +1,6 @@
 {
   "name": "dungeon-synth-bsky-feed",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "server for the Dungeon Synth feed on bluesky",
   "main": "dist/index.js",
   "repository": "git@github.com:maximesimoncelli/dungeon-synth-bsky-feed.git",
@@ -22,7 +22,7 @@
     "@atproto/lexicon": "^0.4.5",
     "@atproto/repo": "^0.6.3",
     "@atproto/syntax": "^0.1.5",
-    "@atproto/xrpc-server": "^0.3.1",
+    "@atproto/xrpc-server": "^0.7.9",
     "better-sqlite3": "^9.5.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
