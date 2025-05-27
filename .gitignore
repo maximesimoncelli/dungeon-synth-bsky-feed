@@ -1,6 +1,6 @@
 node_modules
 db.sqlite
-scripts
+scripts/.env
 .idea
 dist
 .env

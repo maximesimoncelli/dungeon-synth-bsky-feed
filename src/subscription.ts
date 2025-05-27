@@ -3,56 +3,81 @@ import {
   isCommit,
 } from './lexicon/types/com/atproto/sync/subscribeRepos'
 import { FirehoseSubscriptionBase, getOpsByType } from './util/subscription'
-import { Record } from './lexicon/types/app/bsky/feed/post'
+import { Record as PostRecord } from './lexicon/types/app/bsky/feed/post'
 import { isMain } from './lexicon/types/app/bsky/embed/images'
 
-export const validConditions = [
-  '#dungeonsynth',
-  'dungeon synth',
-  'dungeonsynth',
-  'fantasy synth',
-  '#fantasysynth',
-  'fantasysynth',
-  'wintersynth',
-  'forestsynth',
-  'comfysynth',
-  '#wintersynth',
-  '#forestsynth',
-  '#comfysynth',
-  'winter synth',
-  'forest synth',
-  'comfy synth',
-]
+type FeedType =
+  | 'fantasysynth'
+  | 'dungeonsynth'
+  | 'wintersynth'
+  | 'vernalsynth'
+  | 'summersynth'
+  | 'comfysynth'
 
-export const validFantasySynthConditions = [
-  '#fantasysynth',
-  'fantasysynth',
-  'fantasy synth',
-]
+const feedConditions: Record<FeedType, string[]> = {
+  dungeonsynth: [
+    '#dungeonsynth',
+    'dungeon synth',
+    'dungeonsynth',
+  ],
+  fantasysynth: [
+    '#fantasysynth',
+    'fantasysynth',
+    'fantasy synth',
+  ],
+  wintersynth: [
+    '#wintersynth',
+    'wintersynth',
+    'winter synth',
+  ],
+  vernalsynth: [
+    '#vernalsynth',
+    'vernalsynth',
+    'vernal synth',
+    'spring synth',
+    '#springsynth',
+    'springsynth',
+  ],
+  summersynth: [
+    '#summersynth',
+    'summersynth',
+    'summer synth',
+  ],
+  comfysynth: [
+    '#comfysynth',
+    'comfysynth',
+    'comfy synth',
+  ],
+}
 
-export const validate = (post: Record) => {
-  const isTextValid = validConditions.some(
-    (condition) => post.text.toLowerCase().indexOf(condition) !== -1,
+const allConditions = Object.values(feedConditions).flat()
+
+export const validate = (post: PostRecord) => {
+  const text = post.text.toLowerCase()
+  const isTextValid = allConditions.some(
+    (condition) => text.indexOf(condition) !== -1,
   )
-
-  // Don't need to check the embed if the text is already valid
-  if (isTextValid) return isTextValid
+  if (isTextValid) return true
 
   if (isMain(post.embed)) {
     return post.embed.images.some((image) =>
-      validConditions.some(
+      allConditions.some(
         (condition) => image.alt.toLowerCase().indexOf(condition) !== -1,
       ),
     )
   }
+  return false
 }
 
-export const addFeed = (post: Record): 'fantasysynth' | 'dungeonsynth' => {
-  return validFantasySynthConditions.some(
-    (condition) => post.text.toLowerCase().indexOf(condition) !== -1,
-  )
-    ? 'fantasysynth'
-    : 'dungeonsynth'
+export const addFeed = (post: PostRecord): FeedType => {
+  const text = post.text.toLowerCase()
+  for (const [feed, conditions] of Object.entries(feedConditions)) {
+    if (conditions.some((condition) => text.indexOf(condition) !== -1)) {
+      return feed as FeedType
+    }
+  }
+  // Default fallback
+  return 'dungeonsynth'
 }
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
