@@ -24,19 +24,35 @@ export const validConditions = [
   'comfy synth',
 ]
 
+export const validFantasySynthConditions = [
+  '#fantasysynth',
+  'fantasysynth',
+  'fantasy synth',
+]
+
 export const validate = (post: Record) => {
   const isTextValid = validConditions.some(
     (condition) => post.text.toLowerCase().indexOf(condition) !== -1,
   )
 
   // Don't need to check the embed if the text is already valid
-  if (isTextValid) return isTextValid;
+  if (isTextValid) return isTextValid
 
   if (isMain(post.embed)) {
-    return post.embed.images.some(image => validConditions.some(
-      (condition) => image.alt.toLowerCase().indexOf(condition) !== -1,
-    ))
+    return post.embed.images.some((image) =>
+      validConditions.some(
+        (condition) => image.alt.toLowerCase().indexOf(condition) !== -1,
+      ),
+    )
   }
+}
+
+export const addFeed = (post: Record): 'fantasysynth' | 'dungeonsynth' => {
+  return validFantasySynthConditions.some(
+    (condition) => post.text.toLowerCase().indexOf(condition) !== -1,
+  )
+    ? 'fantasysynth'
+    : 'dungeonsynth'
 }
 
 export class FirehoseSubscription extends FirehoseSubscriptionBase {
@@ -50,6 +66,7 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
         return {
           uri: create.uri,
           cid: create.cid,
+          feed: addFeed(create.record),
           replyParent: create.record?.reply?.parent.uri ?? null,
           replyRoot: create.record?.reply?.root.uri ?? null,
           indexedAt: new Date().toISOString(),

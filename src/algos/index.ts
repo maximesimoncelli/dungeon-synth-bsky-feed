@@ -4,14 +4,19 @@ import {
   OutputSchema as AlgorithmOutput,
 } from '../lexicon/types/app/bsky/feed/getFeedSkeleton'
 import {
-  shortname,
-  handler
+  shortname as dungeonSynthShortname ,
+  handler as dungeonSynthHandler,
 } from './dungeonsynth'
+import {
+  shortname as fantasySynthShortname ,
+  handler as fantasySynthHandler,
+} from './fantasysynth'
 
 type AlgorithmHandler = (ctx: AppContext, params: QueryParams) => Promise<AlgorithmOutput>
 
 const algorithms: Record<string, AlgorithmHandler> = {
-  [shortname]: handler,
+  [dungeonSynthShortname]: dungeonSynthHandler,
+  [fantasySynthShortname]: fantasySynthHandler,
 }
 
 export default algorithms

@@ -2,3 +2,5 @@ node_modules
 db.sqlite
 scripts
 .idea
+dist
+.env
