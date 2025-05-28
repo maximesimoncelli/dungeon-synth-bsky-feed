@@ -1,4 +1,5 @@
 import { Kysely, Migration, MigrationProvider } from 'kysely'
+import { Database } from '.'
 
 const migrations: Record<string, Migration> = {}
 
@@ -9,7 +10,7 @@ export const migrationProvider: MigrationProvider = {
 }
 
 migrations['001'] = {
-  async up(db: Kysely<unknown>) {
+  async up(db: Database) {
     await db.schema
       .createTable('post')
       .addColumn('uri', 'varchar', (col) => col.primaryKey())
@@ -24,20 +25,20 @@ migrations['001'] = {
       .addColumn('cursor', 'integer', (col) => col.notNull())
       .execute()
   },
-  async down(db: Kysely<unknown>) {
+  async down(db: Database) {
     await db.schema.dropTable('post').execute()
     await db.schema.dropTable('sub_state').execute()
   },
 }
 
 migrations['002'] = {
-  async up(db: Kysely<unknown>) {
+  async up(db: Database) {
     await db.schema
       .alterTable('post')
       .addColumn('feed', 'varchar', (col) => col.notNull().defaultTo('dungeonsynth'))
       .execute()
   },
-  async down(db: Kysely<unknown>) {
+  async down(db: Database) {
     await db.schema
       .alterTable('post')
       .dropColumn('feed')
@@ -45,3 +46,17 @@ migrations['002'] = {
   },
 }
 
+migrations['003'] = {
+  async up(db: Database) {
+    await db.schema
+      .alterTable('post')
+      .addColumn('text', 'text')
+      .execute()
+  },
+  async down(db: Database) {
+    await db.schema
+      .alterTable('post')
+      .dropColumn('text')
+      .execute()
+  },
+}

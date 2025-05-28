@@ -7,6 +7,7 @@ export type Post = {
   uri: string
   cid: string
   feed: string
+  text: string | null
   replyParent: string | null
   replyRoot: string | null
   indexedAt: string

@@ -24,6 +24,8 @@ const feedConditions: Record<FeedType, string[]> = {
     '#fantasysynth',
     'fantasysynth',
     'fantasy synth',
+    'fantasy music',
+    '#fantasymusic',
   ],
   wintersynth: [
     '#wintersynth',
@@ -92,6 +94,7 @@ export class FirehoseSubscription extends FirehoseSubscriptionBase {
           uri: create.uri,
           cid: create.cid,
           feed: addFeed(create.record),
+          text: create.record?.text,
           replyParent: create.record?.reply?.parent.uri ?? null,
           replyRoot: create.record?.reply?.root.uri ?? null,
           indexedAt: new Date().toISOString(),
