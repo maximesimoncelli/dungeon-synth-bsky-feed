@@ -20,7 +20,7 @@
     "@atproto/api": "^0.13.32",
     "@atproto/identity": "^0.4.5",
     "@atproto/lexicon": "^0.4.5",
-    "@atproto/repo": "^0.6.3",
+    "@atproto/repo": "^0.8.1",
     "@atproto/syntax": "^0.3.1",
     "@atproto/xrpc-server": "^0.7.9",
     "better-sqlite3": "^11.8.1",
