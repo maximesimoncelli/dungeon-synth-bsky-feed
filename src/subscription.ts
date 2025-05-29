@@ -13,23 +13,12 @@ type FeedType =
   | 'vernalsynth'
   | 'summersynth'
   | 'comfysynth'
+  | 'autumnsynth'
 
 const feedConditions: Record<FeedType, string[]> = {
-  dungeonsynth: [
-    '#dungeonsynth',
-    'dungeon synth',
-    'dungeonsynth',
-  ],
-  fantasysynth: [
-    '#fantasysynth',
-    'fantasysynth',
-    'fantasy synth',
-  ],
-  wintersynth: [
-    '#wintersynth',
-    'wintersynth',
-    'winter synth',
-  ],
+  dungeonsynth: ['#dungeonsynth', 'dungeon synth', 'dungeonsynth'],
+  fantasysynth: ['#fantasysynth', 'fantasysynth', 'fantasy synth'],
+  wintersynth: ['#wintersynth', 'wintersynth', 'winter synth'],
   vernalsynth: [
     '#vernalsynth',
     'vernalsynth',
@@ -38,16 +27,9 @@ const feedConditions: Record<FeedType, string[]> = {
     '#springsynth',
     'springsynth',
   ],
-  summersynth: [
-    '#summersynth',
-    'summersynth',
-    'summer synth',
-  ],
-  comfysynth: [
-    '#comfysynth',
-    'comfysynth',
-    'comfy synth',
-  ],
+  autumnsynth: ['#autumnsynth', 'autumnsynth', 'autumn synth'],
+  summersynth: ['#summersynth', 'summersynth', 'summer synth'],
+  comfysynth: ['#comfysynth', 'comfysynth', 'comfy synth'],
 }
 
 const allConditions = Object.values(feedConditions).flat()
