@@ -46,6 +46,13 @@ const feeds = [
       'All things summer synth. Any post mentioning summer synth‘ or ‘summersynth‘ will be included. 30 days retention time.',
     avatar: './scripts/icon.png',
   },
+  {
+    recordName: 'autumnsynth',
+    displayName: 'Autumn Synth',
+    description:
+      'All things autumn synth. Any post mentioning autumn synth‘ or ‘autumnsynth‘ will be included. 30 days retention time.',
+    avatar: './scripts/icon.png',
+  },
 ]
 
 const run = async () => {
