@@ -24,8 +24,6 @@ const feedConditions: Record<FeedType, string[]> = {
     '#fantasysynth',
     'fantasysynth',
     'fantasy synth',
-    'fantasy music',
-    '#fantasymusic',
   ],
   wintersynth: [
     '#wintersynth',
