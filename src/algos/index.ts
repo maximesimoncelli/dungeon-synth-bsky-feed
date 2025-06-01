@@ -27,6 +27,10 @@ import {
   shortname as wintersynthShortname,
   handler as wintersynthHandler,
 } from './wintersynth'
+import {
+  shortname as autumnsynthShortname,
+  handler as autumnsynthHandler,
+} from './autumnsynth'
 
 type AlgorithmHandler = (ctx: AppContext, params: QueryParams) => Promise<AlgorithmOutput>
 
@@ -37,6 +41,7 @@ const algorithms: Record<string, AlgorithmHandler> = {
   [summersynthShortname]: summersynthHandler,
   [vernalsynthShortname]: vernalsynthHandler,
   [wintersynthShortname]: wintersynthHandler,
+  [autumnsynthShortname]: autumnsynthHandler,
 }
 
 export default algorithms
