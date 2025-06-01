@@ -51,6 +51,3 @@ jobs:
       - name: Push to server
         run: rsync -avz -e 'ssh' dist/* node_modules ecosystem.config.js .env package.json ${{ env.USER }}@${{ env.HOST }}:app/
 
-      - name: Restart PM2
-        run: ssh ${{ env.USER }}@${{ env.HOST }} 'pm2 restart app/ecosystem.config.js --update-env || pm2 start app/ecosystem.config.js --update-env'
-
